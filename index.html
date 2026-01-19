@@ -117,9 +117,10 @@ function resize() {
 }
 window.addEventListener('resize', resize);
 resize();
-const mainTextLine1 = "BRING ME BACK MY BEE";
-const mainTextLine2 = "MY WOMAN";
-const subLines = ["I DIDN’T GIVE UP.", "I’M STILL HERE.", "I’M STILL CHOOSING YOU."];
+const mainTextLine1 = "BRING ME BACK";
+const mainTextLine2 = " MY BEE";
+  const mainTextLine = "MY WOMAN";
+const subLines = ["I DIDN’T GIVE UP.", "I’M STILL HERE.", "I STILL CHOOSE U."];
 let particles = [];
 let phase = 'explode';
 let timer = 0;
@@ -195,6 +196,7 @@ function createParticles(text, yOffset, colorFn) {
 
 createParticles(mainTextLine1, -200, () => 'yellow');
 createParticles(mainTextLine2, -150, () => 'yellow');
+createParticles(mainTextLine3, -100, () => 'yellow');
 createParticles(subLines[0], 30, () => 'hsl(200,100%,70%)');
 createParticles(subLines[1], 80, () => 'hsl(200,100%,70%)');
 createParticles(subLines[2], 130, () => 'hsl(200,100%,70%)');
