@@ -1,1 +1,89 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> <title>I Didn't Give Up</title> <style> html, body { margin: 0; min-height: 100vh; overflow: hidden; font-family: 'Times New Roman', Times, serif; background-image: none; background-size: cover; background-position: center; background-repeat: repeat; background-attachment: fixed; } canvas{ position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; background: transparent; } .garden{position:fixed; inset:0; width:100%; height:100%; z-index:0;} </style> <style> } </style> <style> .call-btn{ position:absolute; left:50%; top:85%; transform:translateX(-50%); padding:16px 32px; border-radius:999px; text-decoration:none; letter-spacing:2px; font-weight:600; font-size:14px; color:#fff; background:linear-gradient(135deg, #ff6aa2, #ffd36a); box-shadow:0 0 30px rgba(255,160,200,.6), inset 0 0 10px rgba(255,255,255,.4); transition:transform .15s ease, box-shadow .15s ease, filter .15s ease; z-index:3; } @media (min-width: 768px){ .call-btn{ top:82%; font-size:16px; } } .call-btn:hover{ transform:translateX(-50%) scale(1.05); filter:brightness(1.05); } .call-btn:active{ transform:translateX(-50%) scale(.98); box-shadow:0 0 18px rgba(255,160,200,.8); } </style> </head> <body> <canvas id="canvas"></canvas> </svg> <a href="tel:+213673278765" class="call-btn" onclick="fallbackCall()">PRESS ME</a> <script> function fallbackCall(){ // Fallback for environments that block tel: links setTimeout(()=>{ alert('Call this number: +213 673 278 765'); }, 300); } </script> <script> const canvas = document.getElementById('canvas'); const ctx = canvas.getContext('2d'); function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } window.addEventListener('resize', resize); resize(); const mainTextLine1 = "BRING ME BACK MY BEE"; const mainTextLine2 = "MY WOMAN"; const subLines = ["I DIDN’T GIVE UP.", "I’M STILL HERE.", "I’M STILL CHOOSING YOU."]; let particles = []; let phase = 'explode'; let timer = 0; let heartbeat = 0; class Particle { constructor(x, y, tx, ty, color) { this.x = x; this.y = y; this.tx = tx; this.ty = ty; this.vx = (Math.random() - 0.5) * 18; this.vy = (Math.random() - 1.2) * 18; this.color = color; this.stuck = false; } update() { if (!this.stuck) { if (phase === 'explode') { this.vy += 0.15; this.x += this.vx; this.y += this.vy; } else if (phase === 'form') { this.x += (this.tx - this.x) * 0.12; this.y += (this.ty - this.y) * 0.12; if (Math.abs(this.tx - this.x) < 0.4 && Math.abs(this.ty - this.y) < 0.4) { this.stuck = true; this.x = this.tx; this.y = this.ty; } } } } draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fill(); } } function createParticles(text, yOffset, colorFn) { const off = document.createElement('canvas'); const offCtx = off.getContext('2d'); off.width = canvas.width; off.height = canvas.height; offCtx.fillStyle = 'white'; offCtx.textAlign = 'center'; offCtx.textBaseline = 'middle'; offCtx.font = '600 ' + Math.min(canvas.width / 10, 44) + 'px "Times New Roman"'; offCtx.fillText(text, canvas.width / 2, canvas.height / 2 + yOffset); const data = offCtx.getImageData(0, 0, off.width, off.height).data; for (let y = 0; y < off.height; y += 4) { for (let x = 0; x < off.width; x += 4) { const i = (y * off.width + x) * 4; if (data[i + 3] > 150) { particles.push(new Particle( canvas.width / 2, canvas.height, x, y, colorFn(x) )); } } } } // Create first line particles (slightly higher) createParticles(mainTextLine1,-80, x => x < canvas.width / 2 ? 'hsl(45,100%,60%)' : 'hsl(330,100%,65%)', () => 'yellow'); // Create second line particles (below the first line) createParticles(mainTextLine2, -80, x => x < canvas.width / 2 ? 'hsl(45,100%,60%)' : 'hsl(330,100%,65%)', () => 'yellow'); createParticles(subLines[0], 30, () => 'hsl(200,100%,70%)'); createParticles(subLines[1], 80, () => 'hsl(200,100%,70%)'); createParticles(subLines[2], 130, () => 'hsl(200,100%,70%)'); function drawBackgroundPulse() { heartbeat += 0.03; const pulse = Math.sin(heartbeat) * 0.15 + 0.25; ctx.fillStyle = rgba(0,0,0,${pulse}); ctx.fillRect(0, 0, canvas.width, canvas.height); } function drawAmbientSparks() { if (phase !== 'done' && Math.random() < 0.05) { ctx.fillStyle = 'rgba(255,255,255,0.15)'; ctx.beginPath(); ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 1, 0, Math.PI*2); ctx.fill(); } } function loop() { drawBackgroundPulse(); particles.forEach(p => { p.update(); p.draw(); }); drawAmbientSparks(); timer++; if (timer === 90) phase = 'form'; if (timer > 260) phase = 'done'; requestAnimationFrame(loop); } loop(); </script> </body> </html>
+<!DOCTYPE html>
+}
+}
+
+
+function createParticles(text, yOffset, colorFn) {
+const off = document.createElement('canvas');
+const offCtx = off.getContext('2d');
+off.width = canvas.width;
+off.height = canvas.height;
+
+
+offCtx.fillStyle = 'white';
+offCtx.textAlign = 'center';
+offCtx.textBaseline = 'middle';
+offCtx.font = '600 ' + Math.min(canvas.width / 12, 34) + 'px "Times New Roman"';
+offCtx.fillText(text, canvas.width / 2, canvas.height / 2 + yOffset);
+
+
+const data = offCtx.getImageData(0, 0, off.width, off.height).data;
+
+
+for (let y = 0; y < off.height; y += 4) {
+for (let x = 0; x < off.width; x += 4) {
+const i = (y * off.width + x) * 4;
+if (data[i + 3] > 150) {
+particles.push(new Particle(
+canvas.width / 2,
+canvas.height,
+x,
+y,
+colorFn(x)
+));
+}
+}
+}
+}
+
+
+createParticles(mainText, -90, x => x < canvas.width / 2 ? 'hsl(45,100%,60%)' : 'hsl(330,100%,65%)');
+createParticles(subLines[0], 30, () => 'hsl(200,100%,70%)');
+createParticles(subLines[1], 80, () => 'hsl(200,100%,70%)');
+createParticles(subLines[2], 130, () => 'hsl(200,100%,70%)');
+
+
+function drawBackgroundPulse() {
+heartbeat += 0.03;
+const pulse = Math.sin(heartbeat) * 0.15 + 0.25;
+ctx.fillStyle = `rgba(0,0,0,${pulse})`;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+
+function drawAmbientSparks() {
+if (phase !== 'done' && Math.random() < 0.05) {
+ctx.fillStyle = 'rgba(255,255,255,0.15)';
+ctx.beginPath();
+ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 1, 0, Math.PI*2);
+ctx.fill();
+}
+}
+
+
+function loop() {
+drawBackgroundPulse();
+
+
+particles.forEach(p => {
+p.update();
+p.draw();
+});
+
+
+drawAmbientSparks();
+
+
+timer++;
+if (timer === 90) phase = 'form';
+if (timer > 260) phase = 'done';
+
+
+requestAnimationFrame(loop);
+}
+
+
+loop();
+</script>
+</body>
+</html>
