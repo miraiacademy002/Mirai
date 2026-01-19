@@ -9,7 +9,7 @@
   margin: 0;
   min-height: 100vh;
   overflow: hidden;
-  font-family: 'Palatino Linotype', 'Book Antiqua', 'Georgia', serif;
+  font-family: 'Times New Roman', Times, serif;
   background-image: url('./download.jpg');
   background-size: cover;
   background-position: center;
@@ -187,7 +187,7 @@ function createParticles(text, yOffset, colorFn) {
   offCtx.fillStyle = 'white';
   offCtx.textAlign = 'center';
   offCtx.textBaseline = 'middle';
-  offCtx.font = '500 ' + Math.min(canvas.width / 10, 46) + '
+  offCtx.font = '600 ' + Math.min(canvas.width / 10, 44) + 'px "Times New Roman"';
   offCtx.fillText(text, canvas.width / 2, canvas.height / 2 + yOffset);
 
   const data = offCtx.getImageData(0, 0, off.width, off.height).data;
@@ -250,4 +250,5 @@ loop();
 </script>
 </body>
 </html>
+
 
