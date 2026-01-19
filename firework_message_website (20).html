@@ -125,14 +125,15 @@ class Particle {
 function createParticles(text, yOffset, colorFn) {
   const off = document.createElement('canvas');
   const offCtx = off.getContext('2d');
+  const fontSize = window.innerWidth < 768 ? 30 : 50; // 30px on mobile, 50px on desktop
+ 
   off.width = canvas.width;
   off.height = canvas.height;
 
   offCtx.fillStyle = 'white';
   offCtx.textAlign = 'center';
   offCtx.textBaseline = 'middle';
-  // Changed font to Montserrat
-  offCtx.font = '500 ' + Math.min(canvas.width / 10, 80) + 'px "Times New Roman"';
+  offCtx.font = `500 ${fontSize}px "Times New Roman"`;
   offCtx.fillText(text, canvas.width / 2, canvas.height / 2 + yOffset);
 
   const data = offCtx.getImageData(0, 0, off.width, off.height).data;
